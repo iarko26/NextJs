@@ -9,9 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "^6.4.6",
+    "@mui/styles": "^6.4.6",
+    "apexcharts": "^4.5.0",
+    "material-icons": "^1.13.14",
+    "next": "15.1.4",
     "react": "^19.0.0",
+    "react-apexcharts": "^1.7.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.4"
+    "swr": "^2.3.2"
   },
   "devDependencies": {
     "postcss": "^8",
