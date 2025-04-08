@@ -1,17 +1,19 @@
 'use server';
 import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const user = await currentUser();
-  console.log(user);
-
-  if (!user) {
-    return <div>Not signed in</div>;
+  const profileInfo=null;
+  if(user && !profileInfo){
+    redirect('/onboard')
   }
+
+
 
   return (
     <div>
-      <section>
+      <section className="text-xl font-bold ">
        Main content
       </section>
     </div>
