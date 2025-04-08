@@ -3,6 +3,7 @@ import "./globals.css";
 import { Suspense } from "react";
 import Loading from "./loading";
 import Common from "@/components/common";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +26,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={<Loading />}>
-           <Common children={children}/>
-
-        </Suspense>
+        <ClerkProvider> {/* Wrap the app with ClerkProvider */}
+          <Suspense fallback={<Loading />}>
+            <Common>{children}</Common>
+          </Suspense>
+        </ClerkProvider>
       </body>
     </html>
   );
