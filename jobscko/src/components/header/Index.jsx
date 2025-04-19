@@ -10,61 +10,27 @@ import {
 import { Button } from "../ui/button";
 import { AlignJustify } from "lucide-react";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 
 function Header({ user, profileInfo }) {
+  // Define menu items dynamically based on user and profileInfo
   const menuItems = [
-    {
-      label: "Home",
-      path: "/",
-      show: true,
-    },
-    {
-      label: "Feed",
-      path: "/feed",
-      show: profileInfo,
-    },
-    {
-      label: "Login",
-      path: "/sign-in",
-      show: !user,
-    },
-    {
-      label: "Register",
-      path: "/sign-up",
-      show: !user,
-    },
-    {
-      label: "Activity",
-      path: "/activity",
-      show: profileInfo?.role === "candidate",
-    },
-    {
-      label: "Companies",
-      path: "/companies",
-      show: profileInfo?.role === "candidate",
-    },
-    {
-      label: "Jobs",
-      path: "/jobs",
-      show: profileInfo,
-    },
-    {
-      label: "Memberships",
-      path: "/memberships",
-      show: profileInfo,
-    },
-    {
-      label: "Accounts",
-      path: "/accounts",
-      show: profileInfo,
-    },
+    { label: "Home", path: "/", show: true },
+    { label: "Feed", path: "/feed", show: profileInfo },
+    { label: "Login", path: "/sign-in", show: !user },
+    { label: "Register", path: "/sign-up", show: !user },
+    { label: "Activity", path: "/activity", show: profileInfo?.role === "candidate" },
+    { label: "Companies", path: "/companies", show: profileInfo?.role === "candidate" },
+    { label: "Jobs", path: "/jobs", show: profileInfo },
+    { label: "Memberships", path: "/memberships", show: profileInfo },
+    { label: "Accounts", path: "/accounts", show: profileInfo },
   ];
 
   return (
     <div>
       <header className="flex w-full shrink-0 h-16 items-center">
-        {/* Mobile version */}
-        <div className="lg:hidden"> {/* Hide on large screens */}
+        {/* Mobile Menu */}
+        <div className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button>
@@ -88,19 +54,34 @@ function Header({ user, profileInfo }) {
                       {item.label}
                     </Link>
                   ))}
+                  <UserButton
+            afterSignOutUrl="/"
+            showName={false}
+            
+            appearance={{
+              baseTheme: "dark",
+              elements: {
+                userButton: "w-full h-full",
+                userButtonPopover: "w-96",
+                userButtonPopoverCard: "w-96",
+                userButtonPopoverFooter: "hidden",
+              },
+              variables: {
+                colorScheme: "dark",
+              },
+            }}
+          />
+            
               </div>
-            </SheetContent>
+              </SheetContent>
           </Sheet>
         </div>
 
-        {/* Desktop version */}
-        <Link
-          href={"/"}
-          className="hidden font-bold text-3xl lg:flex mr-6"
-        >
+        {/* Desktop Menu */}
+        <Link href="/" className="hidden font-bold text-3xl lg:flex mr-6">
           JOBSCKO
         </Link>
-        <nav className="ml-auto hidden lg:flex gap-6 items-center"> {/* Hide on small screens */}
+        <nav className="ml-auto hidden lg:flex gap-6 items-center">
           {menuItems
             .filter((item) => item.show)
             .map((item) => (
@@ -112,8 +93,25 @@ function Header({ user, profileInfo }) {
                 {item.label}
               </Link>
             ))}
+          {/* User Button */}
+          <UserButton
+            afterSignOutUrl="/"
+            showName={false}
+            
+            appearance={{
+              baseTheme: "dark",
+              elements: {
+                userButton: "w-full h-full",
+                userButtonPopover: "w-96",
+                userButtonPopoverCard: "w-96",
+                userButtonPopoverFooter: "hidden",
+              },
+              variables: {
+                colorScheme: "dark",
+              },
+            }}
+          />
         </nav>
-        
       </header>
     </div>
   );

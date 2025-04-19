@@ -7,7 +7,7 @@ const profileSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["Candidate", "Recruiter"],
+        enum: ["candidate", "recruiter"],
         required: true,
     },
     email: {
